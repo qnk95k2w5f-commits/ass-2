@@ -4,7 +4,6 @@ public class Main {
     public static void main(String[] args) {
         CinemaSystem s = new CinemaSystem();
 
-        // Данные
         Movie m1 = new Movie("M1", "Inception", "Sci-Fi", 148, 8.8);
         Movie m2 = new Movie("M2", "Dark Knight", "Action", 152, 9.0);
         Movie m3 = new Movie("M3", "Interstellar", "Sci-Fi", 169, 8.6);
@@ -18,7 +17,6 @@ public class Main {
         s.add(new VIP("T2", m2, c2, "21:00", "V1", true));
         s.add(new Student("T3", m3, c1, "18:00", "B3"));
 
-        // Вывод
         System.out.println("=== ВСЕ ФИЛЬМЫ ===");
         s.showMovies();
 
@@ -28,7 +26,6 @@ public class Main {
         System.out.println("\n=== КЛИЕНТЫ ===");
         s.showCustomers();
 
-        // Фильтрация
         System.out.println("\n=== ФИЛЬТР: Sci-Fi ===");
         s.filterByGenre("Sci-Fi").forEach(System.out::println);
 
@@ -38,14 +35,12 @@ public class Main {
         System.out.println("\n=== ФИЛЬТР: Билеты C1 ===");
         s.filterByCustomer("C1").forEach(System.out::println);
 
-        // Поиск
         System.out.println("\n=== ПОИСК: M2 ===");
         System.out.println(s.findMovie("M2"));
 
         System.out.println("\n=== ПОИСК: Inception ===");
         System.out.println(s.findByTitle("Inception"));
 
-        // Сортировка
         System.out.println("\n=== СОРТИРОВКА: По названию ===");
         s.sortByTitle().forEach(System.out::println);
 
@@ -60,13 +55,11 @@ public class Main {
 
         System.out.println("\n=== Общая выручка: $" + s.revenue() + " ===");
 
-        // Полиморфизм
         System.out.println("\n=== ПОЛИМОРФИЗМ ===");
         System.out.println("Роль клиента: " + c1.getRole());
         Admin a = new Admin("A1", "Alice", "alice@cinema.com", "IT");
         System.out.println("Роль админа: " + a.getRole());
 
-        // equals & hashCode
         System.out.println("\n=== EQUALS & HASHCODE ===");
         Movie test = new Movie("M1", "Inception", "Sci-Fi", 148, 8.8);
         System.out.println("m1.equals(test): " + m1.equals(test));

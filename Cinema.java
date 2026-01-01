@@ -3,7 +3,6 @@ package Cinema.Ticket;
 import java.util.*;
 import java.util.stream.Collectors;
 
-// Абстрактный класс для билетов
 abstract class Ticket {
     private String id, seat, time;
     private Movie movie;
@@ -41,7 +40,6 @@ abstract class Ticket {
     }
 }
 
-// Типы билетов (Полиморфизм)
 class Regular extends Ticket {
     public Regular(String id, Movie m, Customer c, String time, String seat) {
         super(id, m, c, time, seat);
@@ -68,7 +66,6 @@ class Student extends Ticket {
     public String getType() { return "Student"; }
 }
 
-// Система управления кинотеатром
 class CinemaSystem {
     private List<Movie> movies = new ArrayList<>();
     private List<Ticket> tickets = new ArrayList<>();
@@ -81,7 +78,6 @@ class CinemaSystem {
         t.getCustomer().addPoints(10);
     }
 
-    // Фильтрация
     public List<Movie> filterByGenre(String g) {
         return movies.stream().filter(m -> m.getGenre().equalsIgnoreCase(g)).collect(Collectors.toList());
     }
@@ -94,7 +90,6 @@ class CinemaSystem {
         return tickets.stream().filter(t -> t.getCustomer().getId().equals(id)).collect(Collectors.toList());
     }
 
-    // Поиск
     public Movie findMovie(String id) {
         return movies.stream().filter(m -> m.getId().equals(id)).findFirst().orElse(null);
     }
@@ -103,7 +98,6 @@ class CinemaSystem {
         return movies.stream().filter(m -> m.getTitle().equalsIgnoreCase(title)).findFirst().orElse(null);
     }
 
-    // Сортировка
     public List<Movie> sortByTitle() {
         return movies.stream().sorted(Comparator.comparing(Movie::getTitle)).collect(Collectors.toList());
     }

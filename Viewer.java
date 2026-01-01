@@ -31,7 +31,6 @@ abstract class Person {
     }
 }
 
-// Customer (Клиент/Зритель)
 class Customer extends Person {
     private int points = 0;
 
@@ -51,7 +50,6 @@ class Customer extends Person {
     }
 }
 
-// Admin (Администратор)
 class Admin extends Person {
     private String dept;
 
