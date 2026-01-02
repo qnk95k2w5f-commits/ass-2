@@ -1,7 +1,7 @@
 package Cinema.Ticket;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 abstract class Ticket {
     private String id, seat, time;
@@ -67,9 +67,9 @@ class Student extends Ticket {
 }
 
 class CinemaSystem {
-    private List<Movie> movies = new ArrayList<>();
-    private List<Ticket> tickets = new ArrayList<>();
-    private List<Customer> customers = new ArrayList<>();
+    private List<Movie> movies = new ArrayList<Movie>();
+    private List<Ticket> tickets = new ArrayList<Ticket>();
+    private List<Customer> customers = new ArrayList<Customer>();
 
     public void add(Movie m) { movies.add(m); }
     public void add(Customer c) { customers.add(c); }
@@ -79,46 +79,137 @@ class CinemaSystem {
     }
 
     public List<Movie> filterByGenre(String g) {
-        return movies.stream().filter(m -> m.getGenre().equalsIgnoreCase(g)).collect(Collectors.toList());
+        List<Movie> result = new ArrayList<Movie>();
+        for (int i = 0; i < movies.size(); i++) {
+            Movie m = movies.get(i);
+            if (m.getGenre().equalsIgnoreCase(g)) {
+                result.add(m);
+            }
+        }
+        return result;
     }
 
     public List<Movie> filterByRating(double min) {
-        return movies.stream().filter(m -> m.getRating() >= min).collect(Collectors.toList());
+        List<Movie> result = new ArrayList<Movie>();
+        for (int i = 0; i < movies.size(); i++) {
+            Movie m = movies.get(i);
+            if (m.getRating() >= min) {
+                result.add(m);
+            }
+        }
+        return result;
     }
 
     public List<Ticket> filterByCustomer(String id) {
-        return tickets.stream().filter(t -> t.getCustomer().getId().equals(id)).collect(Collectors.toList());
+        List<Ticket> result = new ArrayList<Ticket>();
+        for (int i = 0; i < tickets.size(); i++) {
+            Ticket t = tickets.get(i);
+            if (t.getCustomer().getId().equals(id)) {
+                result.add(t);
+            }
+        }
+        return result;
     }
 
     public Movie findMovie(String id) {
-        return movies.stream().filter(m -> m.getId().equals(id)).findFirst().orElse(null);
+        for (int i = 0; i < movies.size(); i++) {
+            Movie m = movies.get(i);
+            if (m.getId().equals(id)) {
+                return m;
+            }
+        }
+        return null;
     }
 
     public Movie findByTitle(String title) {
-        return movies.stream().filter(m -> m.getTitle().equalsIgnoreCase(title)).findFirst().orElse(null);
+        for (int i = 0; i < movies.size(); i++) {
+            Movie m = movies.get(i);
+            if (m.getTitle().equalsIgnoreCase(title)) {
+                return m;
+            }
+        }
+        return null;
     }
 
     public List<Movie> sortByTitle() {
-        return movies.stream().sorted(Comparator.comparing(Movie::getTitle)).collect(Collectors.toList());
+        List<Movie> result = new ArrayList<Movie>(movies);
+        for (int i = 0; i < result.size() - 1; i++) {
+            for (int j = 0; j < result.size() - i - 1; j++) {
+                if (result.get(j).getTitle().compareTo(result.get(j + 1).getTitle()) > 0) {
+                    Movie temp = result.get(j);
+                    result.set(j, result.get(j + 1));
+                    result.set(j + 1, temp);
+                }
+            }
+        }
+        return result;
     }
 
     public List<Movie> sortByRating() {
-        return movies.stream().sorted(Comparator.comparing(Movie::getRating).reversed()).collect(Collectors.toList());
+        List<Movie> result = new ArrayList<Movie>(movies);
+        for (int i = 0; i < result.size() - 1; i++) {
+            for (int j = 0; j < result.size() - i - 1; j++) {
+                if (result.get(j).getRating() < result.get(j + 1).getRating()) {
+                    Movie temp = result.get(j);
+                    result.set(j, result.get(j + 1));
+                    result.set(j + 1, temp);
+                }
+            }
+        }
+        return result;
     }
 
     public List<Customer> sortByPoints() {
-        return customers.stream().sorted(Comparator.comparing(Customer::getPoints).reversed()).collect(Collectors.toList());
+        List<Customer> result = new ArrayList<Customer>(customers);
+        for (int i = 0; i < result.size() - 1; i++) {
+            for (int j = 0; j < result.size() - i - 1; j++) {
+                if (result.get(j).getPoints() < result.get(j + 1).getPoints()) {
+                    Customer temp = result.get(j);
+                    result.set(j, result.get(j + 1));
+                    result.set(j + 1, temp);
+                }
+            }
+        }
+        return result;
     }
 
     public List<Ticket> sortByPrice() {
-        return tickets.stream().sorted(Comparator.comparing(Ticket::getPrice).reversed()).collect(Collectors.toList());
+        List<Ticket> result = new ArrayList<Ticket>(tickets);
+        for (int i = 0; i < result.size() - 1; i++) {
+            for (int j = 0; j < result.size() - i - 1; j++) {
+                if (result.get(j).getPrice() < result.get(j + 1).getPrice()) {
+                    Ticket temp = result.get(j);
+                    result.set(j, result.get(j + 1));
+                    result.set(j + 1, temp);
+                }
+            }
+        }
+        return result;
     }
 
     public double revenue() {
-        return tickets.stream().mapToDouble(Ticket::getPrice).sum();
+        double total = 0;
+        for (int i = 0; i < tickets.size(); i++) {
+            total += tickets.get(i).getPrice();
+        }
+        return total;
     }
 
-    public void showMovies() { movies.forEach(System.out::println); }
-    public void showTickets() { tickets.forEach(System.out::println); }
-    public void showCustomers() { customers.forEach(System.out::println); }
+    public void showMovies() {
+        for (int i = 0; i < movies.size(); i++) {
+            System.out.println(movies.get(i));
+        }
+    }
+
+    public void showTickets() {
+        for (int i = 0; i < tickets.size(); i++) {
+            System.out.println(tickets.get(i));
+        }
+    }
+
+    public void showCustomers() {
+        for (int i = 0; i < customers.size(); i++) {
+            System.out.println(customers.get(i));
+        }
+    }
 }

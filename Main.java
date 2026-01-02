@@ -27,13 +27,19 @@ public class Main {
         s.showCustomers();
 
         System.out.println("\n=== ФИЛЬТР: Sci-Fi ===");
-        s.filterByGenre("Sci-Fi").forEach(System.out::println);
+        for (Movie m : s.filterByGenre("Sci-Fi")) {
+            System.out.println(m);
+        }
 
         System.out.println("\n=== ФИЛЬТР: Рейтинг >= 8.7 ===");
-        s.filterByRating(8.7).forEach(System.out::println);
+        for (Movie m : s.filterByRating(8.7)) {
+            System.out.println(m);
+        }
 
         System.out.println("\n=== ФИЛЬТР: Билеты C1 ===");
-        s.filterByCustomer("C1").forEach(System.out::println);
+        for (Ticket t : s.filterByCustomer("C1")) {
+            System.out.println(t);
+        }
 
         System.out.println("\n=== ПОИСК: M2 ===");
         System.out.println(s.findMovie("M2"));
@@ -42,16 +48,24 @@ public class Main {
         System.out.println(s.findByTitle("Inception"));
 
         System.out.println("\n=== СОРТИРОВКА: По названию ===");
-        s.sortByTitle().forEach(System.out::println);
+        for (Movie m : s.sortByTitle()) {
+            System.out.println(m);
+        }
 
         System.out.println("\n=== СОРТИРОВКА: По рейтингу ===");
-        s.sortByRating().forEach(System.out::println);
+        for (Movie m : s.sortByRating()) {
+            System.out.println(m);
+        }
 
         System.out.println("\n=== СОРТИРОВКА: По баллам ===");
-        s.sortByPoints().forEach(System.out::println);
+        for (Customer c : s.sortByPoints()) {
+            System.out.println(c);
+        }
 
         System.out.println("\n=== СОРТИРОВКА: По цене ===");
-        s.sortByPrice().forEach(System.out::println);
+        for (Ticket t : s.sortByPrice()) {
+            System.out.println(t);
+        }
 
         System.out.println("\n=== Общая выручка: $" + s.revenue() + " ===");
 

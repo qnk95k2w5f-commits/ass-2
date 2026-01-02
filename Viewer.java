@@ -59,7 +59,5 @@ class Admin extends Person {
     }
 
     @Override
-    public String getRole() {
-        return "Admin";
-    }
+    public String getRole() { return "Admin"; }
 }
